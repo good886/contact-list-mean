@@ -4,18 +4,18 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
 
 var refresh = function() {
-  $http.get('/contactlist').success(function(response) {
+  $http.get('/shoppinglist').success(function(response) {
     console.log("I got the data I requested");
-    $scope.contactlist = response;
-    $scope.contact = "";
+    $scope.shoppinglist = response;
+    $scope.product = "";
   });
 };
 
 refresh();
 
-$scope.addContact = function() {
-  console.log($scope.contact);
-  $http.post('/contactlist', $scope.contact).success(function(response) {
+$scope.addProduct = function() {
+  console.log($scope.product);
+  $http.post('/shoppinglist', $scope.product).success(function(response) {
     console.log(response);
     refresh();
   });
@@ -23,27 +23,27 @@ $scope.addContact = function() {
 
 $scope.remove = function(id) {
   console.log(id);
-  $http.delete('/contactlist/' + id).success(function(response) {
+  $http.delete('/shoppinglist/' + id).success(function(response) {
     refresh();
   });
 };
 
 $scope.edit = function(id) {
   console.log(id);
-  $http.get('/contactlist/' + id).success(function(response) {
-    $scope.contact = response;
+  $http.get('/shoppinglist/' + id).success(function(response) {
+    $scope.product = response;
   });
 };  
 
 $scope.update = function() {
-  console.log($scope.contact._id);
-  $http.put('/contactlist/' + $scope.contact._id, $scope.contact).success(function(response) {
+  console.log($scope.product._id);
+  $http.put('/shoppinglist/' + $scope.product._id, $scope.product).success(function(response) {
     refresh();
   })
 };
 
 $scope.deselect = function() {
-  $scope.contact = "";
+  $scope.product = "";
 }
 
 }]);﻿

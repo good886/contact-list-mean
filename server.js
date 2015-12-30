@@ -4,9 +4,9 @@ var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
 // we can also provide some credentials
-var db = mongojs('user:user123@ds037175.mongolab.com:37175/contactlist', ['contactlist'])
+var db = mongojs('user:user123@ds037175.mongolab.com:37175/shoppinglist', ['shoppinglist'])
 
-//var db = mongojs('contactlist', ['contactlist']);
+//var db = mongojs('shoppinglist', ['shoppinglist']);
 var bodyParser = require('body-parser');
 
 // configuration ===========================================
@@ -18,44 +18,44 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-app.get('/contactlist', function (req, res) {
+app.get('/shoppinglist', function (req, res) {
   console.log('I received a GET request');
 
-  db.contactlist.find(function (err, docs) {
+  db.shoppinglist.find(function (err, docs) {
     console.log(docs);
     res.json(docs);
   });
 });
 
-app.post('/contactlist', function (req, res) {
+app.post('/shoppinglist', function (req, res) {
   console.log(req.body);
-  db.contactlist.insert(req.body, function(err, doc) {
+  db.shoppinglist.insert(req.body, function(err, doc) {
     res.json(doc);
   });
 });
 
-app.delete('/contactlist/:id', function (req, res) {
+app.delete('/shoppinglist/:id', function (req, res) {
   var id = req.params.id;
   console.log(id);
-  db.contactlist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+  db.shoppinglist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
     res.json(doc);
   });
 });
 
-app.get('/contactlist/:id', function (req, res) {
+app.get('/shoppinglist/:id', function (req, res) {
   var id = req.params.id;
   console.log(id);
-  db.contactlist.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
+  db.shoppinglist.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
     res.json(doc);
   });
 });
 
-app.put('/contactlist/:id', function (req, res) {
+app.put('/shoppinglist/:id', function (req, res) {
   var id = req.params.id;
   console.log(req.body.name);
-  db.contactlist.findAndModify({
+  db.shoppinglist.findAndModify({
     query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {name: req.body.name, email: req.body.email, number: req.body.number}},
+    update: {$set: {name: req.body.name, market1: req.body.market1, market2: req.body.market2, market3: req.body.market3, price: req.body.price, price1: req.body.price1, price2: req.body.price2}},
     new: true}, function (err, doc) {
       res.json(doc);
     }
@@ -63,4 +63,5 @@ app.put('/contactlist/:id', function (req, res) {
 });
 
 app.listen(3000);
+app.set('port', (process.env.PORT || 3000))
 console.log("Server running on port 3000");
