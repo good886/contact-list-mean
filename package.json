@@ -5,7 +5,10 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.10.2",
-    "express": "^4.11.1",
+    "engines": {
+      "node": "4.1.1"
+    },
+    "express": "^4.13.3",
     "mongojs": "^0.18.1"
   },
   "devDependencies": {},
@@ -22,8 +25,5 @@
   "bugs": {
     "url": "https://github.com/michaelcheng429/meanstacktutorial/issues"
   },
-  "engines": {
-    "node": "0.10.x"
-},
   "homepage": "https://github.com/michaelcheng429/meanstacktutorial"
 }
